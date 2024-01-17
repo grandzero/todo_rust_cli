@@ -20,7 +20,7 @@ pub struct Task {
     pub project_name: String,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct TaskList {
     pub tasks: Vec<Task>,
     pub last_id: u32,

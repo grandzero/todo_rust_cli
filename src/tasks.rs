@@ -62,21 +62,65 @@ pub fn create_new_task(
         })
 }
 
-pub fn read_tasklist(project_name: &str) -> Result<TaskList, ToDoErrors> {
-    if let Ok(project) = read_from_file(project_name) {
-        Ok(project)
+pub fn read_tasklist(filename: &str) -> Result<TaskList, ToDoErrors> {
+    if let Ok(tasklist) = read_from_file(filename) {
+        Ok(tasklist)
     } else {
         Err(ToDoErrors::NotFound)
     }
 }
 
+pub fn update_task(
+    task_name: String,
+    new_name: String,
+    new_description: String,
+    new_project_name: String,
+    new_order: u32,
+) -> Result<Task, ToDoErrors> {
+    read_tasklist("tasks.json")
+        .and_then(|mut new_tasklist| {
+            let task = find_task(task_name.clone(), new_tasklist.clone())?;
+            let now = Local::now();
+            let formatted_time = now.format("%Y-%m-%d %H:%M:%S").to_string();
+            let new_task = Task {
+                id: task.id,
+                name: new_name,
+                description: new_description,
+                completed: task.completed,
+                order: new_order,
+                created_at: task.created_at,
+                updated_at: formatted_time,
+                deleted_at: task.deleted_at,
+                project_name: new_project_name,
+            };
+            let index = new_tasklist
+                .tasks
+                .iter()
+                .position(|x| x.name == task_name)
+                .unwrap();
+            new_tasklist.tasks.remove(index);
+            new_tasklist.tasks.push(new_task.clone());
+            write_to_file("tasks.json", &new_tasklist)
+                .or_else(|_| return Err(ToDoErrors::DatabaseError))?;
+            Ok(new_task)
+        })
+        .or_else(|_| Err(ToDoErrors::NotFound))
+}
+
 pub fn find_task(task_name: String, task_list: TaskList) -> Result<Task, ToDoErrors> {
-    task_list
+    println!("{:?}", task_list);
+    println!("Entered find task");
+    if let Some(task) = task_list
         .tasks
         .iter()
-        .find(|task| task.name == task_name)
+        .find(|task| task.name.contains(&task_name))
         .cloned()
-        .ok_or(ToDoErrors::NotFoundTaskError)
+    {
+        println!("Found task");
+        return Ok(task);
+    }
+    println!("Task not found");
+    Err(ToDoErrors::NotFound)
 }
 
 #[cfg(test)]
@@ -91,6 +135,32 @@ mod tests {
             String::from("Test project"),
             1,
         );
+        assert_eq!(task.is_ok(), true);
+    }
+
+    #[test]
+    fn test_read_tasklist() {
+        let tasklist = read_tasklist("tasks.json");
+        assert_eq!(tasklist.is_ok(), true);
+    }
+
+    #[test]
+    fn test_update_task() {
+        let task = create_new_task(
+            String::from("Test task"),
+            String::from("Test task description"),
+            String::from("Test project"),
+            1,
+        );
+        let task = update_task(
+            String::from("Test task"),
+            String::from("Changed"),
+            String::from("Changed"),
+            String::from("Changed"),
+            1,
+        );
+        let tasklist = read_tasklist("tasks.json");
+        println!("{:?}", tasklist);
         assert_eq!(task.is_ok(), true);
     }
 
