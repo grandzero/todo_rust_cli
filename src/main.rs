@@ -2,12 +2,15 @@ use std::env;
 // use std::fs::{self, File};
 // use std::io::{Error, Write};
 // use std::path::PathBuf;
+mod models;
+mod project;
+use project::create_project;
 
 fn main() {
     // println!("Dir : {}", env::current_dir().unwrap().display());
-    for (key, value) in env::vars() {
-        println!("{key}: {value}");
-    }
+
+    create_project("First project".to_string(), "Test project".to_string());
+
     #[cfg(target_os = "windows")]
     {
         println!("Running on Windows");
