@@ -3,13 +3,12 @@ use std::env;
 // use std::io::{Error, Write};
 // use std::path::PathBuf;
 mod models;
-mod project;
-use project::create_project;
+mod tasks;
 
 fn main() {
     // println!("Dir : {}", env::current_dir().unwrap().display());
 
-    create_project("First project".to_string(), "Test project".to_string());
+    //create_project("First project".to_string(), "Test project".to_string());
 
     #[cfg(target_os = "windows")]
     {
