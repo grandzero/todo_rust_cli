@@ -107,6 +107,10 @@ pub fn update_task(
         .or_else(|_| Err(ToDoErrors::NotFound))
 }
 
+pub fn remove_task(id: u32) -> Result<Task, ToDoErrors> {
+    unimplemented!()
+}
+
 pub fn find_task(task_name: String, task_list: TaskList) -> Result<Task, ToDoErrors> {
     println!("{:?}", task_list);
     println!("Entered find task");
