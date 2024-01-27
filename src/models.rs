@@ -1,6 +1,4 @@
 use serde::{Deserialize, Serialize};
-use std::error::Error;
-use std::fmt;
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Task {
@@ -33,6 +31,14 @@ pub enum ToDoErrors {
     InvalidTaskError,
     NotFoundTaskError,
     NotFoundSettingsError,
+    InvalidProjectError,
+}
+#[derive(Clone)]
+pub enum FindTaskBy {
+    Order(u32),
+    Status(String),
+    Name(String),
+    Contains(String),
 }
 impl std::fmt::Display for ToDoErrors {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {

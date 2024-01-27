@@ -1,4 +1,4 @@
-use clap::{Command, Parser, Subcommand};
+use clap::{Parser, Subcommand};
 
 #[derive(Parser, Debug)]
 #[command(author, about, version, name = "todo")]
@@ -77,6 +77,10 @@ pub enum Commands {
     },
 
     Complete {
+        #[arg(long)]
+        id: u32,
+    },
+    Uncomplete {
         #[arg(long)]
         id: u32,
     },
