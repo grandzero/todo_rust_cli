@@ -7,27 +7,28 @@ use std::io::Read;
 use std::io::Write;
 extern crate chrono;
 use chrono::Local;
-
+// Write all tasks into tasklist file
 fn write_to_file(filename: &str, tasklist: &TaskList) -> Result<(), Box<dyn Error>> {
     let serialized = serde_json::to_string(tasklist)?;
     let mut file = File::create(filename)?;
     file.write_all(serialized.as_bytes())?;
     Ok(())
 }
-
+// Read all tasks from tasklist file
 fn read_from_file(filename: &str) -> Result<TaskList, Box<dyn Error>> {
     let mut file = File::open(filename)?;
     let mut contents = String::new();
     file.read_to_string(&mut contents)?;
-    let my_struct: TaskList = serde_json::from_str(&contents)?;
-    Ok(my_struct)
+    let tasks: TaskList = serde_json::from_str(&contents)?;
+    Ok(tasks)
 }
-
+// Check if there is a file tasks.json if not create and add task if there is, read tasks and append new task
 pub fn create_new_task(
     name: String,
     description: String,
     project_name: String,
     order: u32,
+    filename: &str,
 ) -> Result<Task, ToDoErrors> {
     let now = Local::now();
     let formatted_time = now.format("%Y-%m-%d %H:%M:%S").to_string();
@@ -42,10 +43,10 @@ pub fn create_new_task(
         deleted_at: String::from(""),
         project_name: project_name,
     };
-    read_tasklist("tasks.json")
+    read_tasklist(filename)
         .and_then(|mut new_tasklist| {
             new_tasklist.tasks.push(task.clone());
-            write_to_file("tasks.json", &new_tasklist)
+            write_to_file(filename, &new_tasklist)
                 .or_else(|_| return Err(ToDoErrors::DatabaseError))?;
             Ok(task.clone())
         })
@@ -56,7 +57,7 @@ pub fn create_new_task(
                 last_order: 0,
             };
             new_tasklist.tasks.push(task.clone());
-            write_to_file("tasks.json", &new_tasklist)
+            write_to_file(filename, &new_tasklist)
                 .or_else(|_| return Err(ToDoErrors::DatabaseError))?;
             Ok(task)
         })
@@ -76,8 +77,9 @@ pub fn update_task(
     new_description: String,
     new_project_name: String,
     new_order: u32,
+    filename: &str,
 ) -> Result<Task, ToDoErrors> {
-    read_tasklist("tasks.json")
+    read_tasklist(filename)
         .and_then(|mut new_tasklist| {
             let task = find_task(task_name.clone(), new_tasklist.clone())?;
             let now = Local::now();
@@ -100,7 +102,7 @@ pub fn update_task(
                 .unwrap();
             new_tasklist.tasks.remove(index);
             new_tasklist.tasks.push(new_task.clone());
-            write_to_file("tasks.json", &new_tasklist)
+            write_to_file(filename, &new_tasklist)
                 .or_else(|_| return Err(ToDoErrors::DatabaseError))?;
             Ok(new_task)
         })
@@ -138,6 +140,7 @@ mod tests {
             String::from("Test task description"),
             String::from("Test project"),
             1,
+            "tasks.json",
         );
         assert_eq!(task.is_ok(), true);
     }
@@ -155,6 +158,7 @@ mod tests {
             String::from("Test task description"),
             String::from("Test project"),
             1,
+            "tasks.json",
         );
         let task = update_task(
             String::from("Test task"),
@@ -162,6 +166,7 @@ mod tests {
             String::from("Changed"),
             String::from("Changed"),
             1,
+            "tasks.json",
         );
         let tasklist = read_tasklist("tasks.json");
         println!("{:?}", tasklist);

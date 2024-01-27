@@ -1,46 +1,50 @@
+use clap::Parser;
 use std::env;
 // use std::fs::{self, File};
 // use std::io::{Error, Write};
 // use std::path::PathBuf;
+
+mod cli;
 mod models;
 mod tasks;
-
+use cli::{Args, Commands};
 fn main() {
-    // println!("Dir : {}", env::current_dir().unwrap().display());
-
-    //create_project("First project".to_string(), "Test project".to_string());
-
-    #[cfg(target_os = "windows")]
-    {
-        println!("Running on Windows");
-        // Windows specific code here
+    let args = cli::Args::parse();
+    match args.command {
+        Commands::CreateProject { name } => {
+            // Implement logic to create a project
+            println!("Creating project '{}'", name);
+        }
+        Commands::SetProject { name } => {
+            // Implement logic to set a project
+            println!("Setting project '{}'", name);
+        }
+        Commands::CreateTask { title, description } => {
+            // Implement logic to create a task
+            println!(
+                "Creating task '{}' with description '{}'",
+                title, description
+            );
+        }
+        Commands::GetTasklist => {
+            // Implement logic to create a task
+            println!("Get task list worked",);
+        }
+        Commands::UpdateTaskById {
+            id,
+            title,
+            description,
+            completed,
+        } => {
+            // Implement logic to update a task
+            println!(
+                "Updating task with id '{}' title: '{:?}' with description '{:?}' completed: '{:?}'",
+                id, title, description, completed
+            );
+        }
+        _ => {
+            // Implement logic to handle other subcommands
+            println!("Other subcommands");
+        }
     }
-
-    #[cfg(target_os = "linux")]
-    {
-        println!("Running on Linux");
-        // Linux specific code here
-    }
-
-    #[cfg(target_os = "macos")]
-    {
-        println!("Running on macOS");
-        // macOS specific code here
-    }
-    // Step 1: Access the %APPDATA% environment variable
-    // let appdata = env::var("APPDATA").expect("Failed to find APPDATA");
-
-    // // Step 2: Create a path to your application's directory
-    // let mut app_dir = PathBuf::from(appdata);
-    // app_dir.push("YourAppName"); // Replace with your app's name
-
-    // // Create the directory if it does not exist
-    // fs::create_dir_all(&app_dir)?;
-
-    // // Step 3: Write to a file in your directory
-    // let mut file_path = app_dir.join("todo_list.txt"); // Example file name
-    // let mut file = File::create(file_path)?;
-    // writeln!(file, "Your to-do list contents go here")?;
-
-    // Ok(())
 }

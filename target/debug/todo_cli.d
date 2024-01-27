@@ -1,1 +1,1 @@
-/Users/bayramutkuuzunlar/Desktop/todo_rust_cli/target/debug/todo_cli: /Users/bayramutkuuzunlar/Desktop/todo_rust_cli/src/main.rs
+C:\Users\buzunlar\Desktop\todo_rust_cli\target\debug\todo_cli.exe: C:\Users\buzunlar\Desktop\todo_rust_cli\src\cli.rs C:\Users\buzunlar\Desktop\todo_rust_cli\src\main.rs C:\Users\buzunlar\Desktop\todo_rust_cli\src\models.rs C:\Users\buzunlar\Desktop\todo_rust_cli\src\tasks.rs
