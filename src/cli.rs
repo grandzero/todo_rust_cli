@@ -25,12 +25,21 @@ pub enum Commands {
         title: String,
         #[arg(long)]
         description: String,
+        #[arg(long)]
+        order: Option<u32>,
     },
     GetTasklist,
-
     GetTaskById {
         #[arg(long)]
         id: u32,
+    },
+    GetTaskByOrder {
+        #[arg(long)]
+        order: u32,
+    },
+    GetTaskByStatus {
+        #[arg(long)]
+        status: String,
     },
     GetTask {
         #[arg(long)]
@@ -40,7 +49,7 @@ pub enum Commands {
         #[arg(long)]
         contains: String,
     },
-    UpdateTaskById {
+    UpdateTask {
         #[arg(long)]
         id: u32,
         #[arg(long)]
@@ -49,14 +58,17 @@ pub enum Commands {
         description: Option<String>,
         #[arg(long)]
         completed: Option<bool>,
+        #[arg(long)]
+        order: Option<u32>,
+        #[arg(long)]
+        status: Option<String>,
     },
-    UpdateTask {
+
+    UpdateTaskStatus {
         #[arg(long)]
-        title: String,
+        id: u32,
         #[arg(long)]
-        description: Option<String>,
-        #[arg(long)]
-        completed: Option<bool>,
+        status: String,
     },
 
     RemoveTask {

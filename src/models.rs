@@ -1,19 +1,15 @@
 use serde::{Deserialize, Serialize};
+use std::error::Error;
 use std::fmt;
-#[derive(Serialize, Deserialize)]
-pub struct StatusType {
-    pub name: String,
-    pub order: u8,
-}
-#[derive(Serialize, Deserialize)]
-pub struct Status(Vec<StatusType>);
+
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Task {
-    pub id: u8,
+    pub id: u32,
     pub name: String,
     pub description: String,
     pub completed: bool,
     pub order: u32,
+    pub status: String,
     pub created_at: String,
     pub updated_at: String,
     pub deleted_at: String,
@@ -36,10 +32,12 @@ pub enum ToDoErrors {
     InvalidIdError,
     InvalidTaskError,
     NotFoundTaskError,
+    NotFoundSettingsError,
 }
-
-impl fmt::Display for ToDoErrors {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Error occured!")
+impl std::fmt::Display for ToDoErrors {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        write!(f, "{:?}", self)
     }
 }
+
+impl std::error::Error for ToDoErrors {}

@@ -1,0 +1,11 @@
+C:\Users\buzunlar\Desktop\todo_rust_cli\target\debug\deps\libwinreg-7e76e14553430a19.rmeta: C:\Users\buzunlar\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winreg-0.52.0\src\lib.rs C:\Users\buzunlar\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winreg-0.52.0\src\common.rs C:\Users\buzunlar\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winreg-0.52.0\src\enums.rs C:\Users\buzunlar\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winreg-0.52.0\src\reg_key.rs C:\Users\buzunlar\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winreg-0.52.0\src\reg_key_metadata.rs C:\Users\buzunlar\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winreg-0.52.0\src\reg_value.rs C:\Users\buzunlar\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winreg-0.52.0\src\types.rs
+
+C:\Users\buzunlar\Desktop\todo_rust_cli\target\debug\deps\winreg-7e76e14553430a19.d: C:\Users\buzunlar\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winreg-0.52.0\src\lib.rs C:\Users\buzunlar\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winreg-0.52.0\src\common.rs C:\Users\buzunlar\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winreg-0.52.0\src\enums.rs C:\Users\buzunlar\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winreg-0.52.0\src\reg_key.rs C:\Users\buzunlar\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winreg-0.52.0\src\reg_key_metadata.rs C:\Users\buzunlar\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winreg-0.52.0\src\reg_value.rs C:\Users\buzunlar\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winreg-0.52.0\src\types.rs
+
+C:\Users\buzunlar\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winreg-0.52.0\src\lib.rs:
+C:\Users\buzunlar\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winreg-0.52.0\src\common.rs:
+C:\Users\buzunlar\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winreg-0.52.0\src\enums.rs:
+C:\Users\buzunlar\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winreg-0.52.0\src\reg_key.rs:
+C:\Users\buzunlar\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winreg-0.52.0\src\reg_key_metadata.rs:
+C:\Users\buzunlar\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winreg-0.52.0\src\reg_value.rs:
+C:\Users\buzunlar\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winreg-0.52.0\src\types.rs:
