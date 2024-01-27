@@ -1,10 +1,12 @@
+use chrono::format;
+
 use crate::models::{TaskList, ToDoErrors};
 pub use crate::operation_struct::OperationStruct;
 use crate::Settings;
-use std::path::Path;
-use std::result::Result;
-
 use std::io::Write;
+use std::path::Path;
+
+use std::result::Result;
 extern crate chrono;
 
 pub trait CommandOperations {
@@ -20,11 +22,10 @@ impl CommandOperations for OperationStruct {
     fn create_project(&mut self, name: String) -> Result<(), ToDoErrors> {
         // If there is no settings.json file, create it and set the project as default
 
-        let defaults =
-            Settings::read_settings(&self.filename).map_err(|_| ToDoErrors::DatabaseError)?;
-        if defaults.default_project == name {
-            println!("Project '{}' already default", name);
-            return Err(ToDoErrors::DatabaseError);
+        let file_name = format!("{}.json", name);
+        if Path::new(&file_name).exists() {
+            println!("Project '{}' already exists", name);
+            return Err(ToDoErrors::SameProjectError);
         } else {
             let tasklist = TaskList {
                 tasks: Vec::new(),
